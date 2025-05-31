@@ -3,7 +3,7 @@ import torch
 from ultralytics import YOLO
 import time
 
-model = YOLO('emotions140.pt') #runs/detect/yolov11_custom_training3/weights/best.pt
+model = YOLO('working.pt') #runs/detect/yolov11_custom_training3/weights/best.pt
 
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
