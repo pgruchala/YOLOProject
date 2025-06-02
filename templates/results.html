@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Wyniki Analizy Emocji</h1>
+        
+        <div class="results-container">
+            {% if image_path %}
+                <h2>Przeanalizowane zdjęcie:</h2>
+                <div class="result-image">
+                    <img src="{{ url_for('static', filename='results/' + result_filename) }}" alt="Wynik analizy">
+                </div>
+                <div class="download">
+                    <a href="{{ url_for('static', filename='results/' + result_filename) }}" download="emotion_result.jpg">
+                        Pobierz wynik
+                    </a>
+                </div>
+            {% elif video_path %}
+                <h2>Przeanalizowane wideo:</h2>
+                <div class="result-video">
+                    <video controls>
+                        <source src="{{ url_for('static', filename='results/' + result_filename) }}" type="video/mp4">
+                        Twoja przeglądarka nie obsługuje odtwarzania wideo.
+                    </source>
+                </div>
+                <div class="download">
+                    <a href="{{ url_for('static', filename='results/' + result_filename) }}" download="emotion_result.mp4">
+                        Pobierz wynik
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="actions">
+            <a href="/" class="button">Analizuj kolejny plik</a>
+            <a href="/camera" class="button">Użyj kamery</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przetworzony Plik</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Przetworzony Plik</h1>
+
+        {% if file_type == 'image' %}
+            <h2>Przetworzony Obraz:</h2>
+            <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Processed Image">
+        {% elif file_type == 'video' %}
+            <h2>Przetworzony Film:</h2>
+            <video controls width="720" height="480">
+                <source src="{{ url_for('uploaded_file', filename=filename) }}" type="video/mp4">
+                Twoja przeglądarka nie obsługuje tagu wideo.
+            </video>
+        {% else %}
+            <p>Nieznany typ pliku.</p>
+        {% endif %}
+
+        <br>
+        <a href="{{ url_for('index') }}" class="button">Powrót do Strony Głównej</a>
+    </div>
+</body>
+</html>

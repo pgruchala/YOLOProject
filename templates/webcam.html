@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Emotion Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Podgląd z Kamery na Żywo (Detekcja Emocji)</h1>
+        <img src="{{ url_for('video_feed') }}" width="1280" height="720" alt="Webcam Feed">
+        <br>
+        <a href="{{ url_for('index') }}" class="button">Powrót do Strony Głównej</a>
+        <p>Naciśnij 'q' w oknie kamery, aby zakończyć podgląd.</p>
+    </div>
+</body>
+</html>

@@ -3,7 +3,7 @@ import torch
 from ultralytics import YOLO
 import time
 
-model = YOLO('working.pt') #runs/detect/yolov11_custom_training3/weights/best.pt
+model = YOLO('yolov11Emotions/weights/best.pt') #runs/detect/yolov11_custom_training3/weights/best.pt
 
 cap = cv2.VideoCapture(0)
 if not cap.isOpened():
@@ -26,7 +26,7 @@ while True:
     fps = 1 / (current_time - prev_time) if prev_time > 0 else 0
     prev_time = current_time
         
-    results = model(frame)
+    results = model(frame, conf=0.40)
     
     annotated_frame = results[0].plot()
     
