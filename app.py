@@ -48,7 +48,7 @@ def generate_frames():
         fps = 1 / (current_time - prev_time) if prev_time > 0 else 0
         prev_time = current_time
 
-        results = model(frame, stream=True, conf=0.35)
+        results = model(frame, stream=True, conf=0.40)
 
         for r in results:
             annotated_frame = r.plot()
@@ -116,7 +116,7 @@ def upload_file():
                 ret, frame = cap.read()
                 if not ret:
                     break
-                results = model(frame)
+                results = model(frame, conf=0.4)
                 annotated_frame = results[0].plot()
                 out.write(annotated_frame)
             
@@ -131,7 +131,7 @@ def upload_file():
                 if img is None:
                     flash(f"Nie można wczytać obrazu: {filename}")
                     return redirect(url_for('index'))
-                results = model(img)
+                results = model(img, conf=0.4)
                 annotated_img = results[0].plot()
                 
                 cv2.imwrite(processed_filepath, annotated_img)
@@ -157,16 +157,15 @@ def display_processed(filename):
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    # Determine the MIME type based on file extension
     file_extension = filename.rsplit('.', 1)[1].lower()
     if file_extension in {'mp4', 'mov'}:
         mimetype = 'video/mp4'
     elif file_extension == 'avi':
-        mimetype = 'video/x-msvideo' # AVI MIME type
+        mimetype = 'video/x-msvideo'
     elif file_extension in {'png', 'jpg', 'jpeg', 'gif'}:
         mimetype = f'image/{file_extension}'
     else:
-        mimetype = None # Let send_from_directory infer
+        mimetype = None
 
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename, mimetype=mimetype)
 
